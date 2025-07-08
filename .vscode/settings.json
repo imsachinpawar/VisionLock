@@ -1,0 +1,17 @@
+{
+    "python.testing.pytestArgs": [
+        "."
+    ],
+    "python.testing.unittestEnabled": false,
+    "python.testing.pytestEnabled": true
+}
+"editor.formatOnPaste": false,
+"editor.selectionClipboard": false,
+"editor.emptySelectionClipboard": false
+"editor.multiCursorModifier": "alt",
+"editor.accessibilitySupport": "off"
+"editor.defaultFormatter": "esbenp.prettier-vscode",
+"editor.formatOnSave": true,
+"[javascript]": {
+  "editor.defaultFormatter": "esbenp.prettier-vscode"
+}

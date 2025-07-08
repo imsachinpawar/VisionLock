@@ -1,0 +1,16 @@
+App-specific password from Google
+"xrvn nacy gonz jzzw"
+
+
+That’s a strong strategy—establish a solid foundation first, then scale security iteratively. When you're ready to implement:
+
+1)Real-time intrusion logging
+2)Geo-location-based anomaly detection
+3)Audit-compliant activity tracking
+4)JWT or OAuth2-based token hardening
+5)CAPTCHA/rate-limit enforcement for endpoints
+
+"Optional Enhancements
+Count failed attempts and block after N tries.
+Store image and IP in database.
+Display alert on admin dashboard (if exists)."
