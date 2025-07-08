@@ -1,7 +1,19 @@
+# Python virtual environments
 venv/
 __pycache__/
-*.pyc
+*.py[cod]
 *.pyd
-.DS_Store
 *.dll
+*.so
 *.dat
+*.h5
+*.log
+*.ckpt
+
+# IDE files
+.vscode/
+*.swp
+
+# OS-generated files
+.DS_Store
+Thumbs.db
