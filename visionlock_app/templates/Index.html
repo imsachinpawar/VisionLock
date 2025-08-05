@@ -1,93 +1,238 @@
 {% load static %}
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>VisionLock - Home</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>VisionLock - Secure the Future</title>
 
-    <!-- Bootstrap CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <!-- Bootstrap + AOS + Icons -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+  <link href="https://unpkg.com/aos@2.3.4/dist/aos.css" rel="stylesheet">
 
-    <style>
-       body {
-    background: url("{% static 'images/BG-image.jpg' %}") no-repeat center center fixed;
-    background-size: cover;
-    position: relative;
-}
+  <!-- Google Font -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
 
-        body::before {
-            content: "";
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.6);
-            backdrop-filter: blur(2px);
-            z-index: -1;
-        }
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Poppins', sans-serif;
+      background: url("{% static 'images/BG-image1.jpg' %}") no-repeat center center fixed;
+      background-size: cover;
+      color: white;
+      overflow-x: hidden;
+    }
 
-        .login-container {
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            text-align: center;
-        }
+    body::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(10, 10, 30, 0.8);
+      backdrop-filter: blur(3px);
+      z-index: -1;
+    }
 
-        .login-title {
-            color: white;
-            font-size: 28px;
-            font-weight: bold;
-            margin-bottom: 30px;
-        }
+    .hero-section {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 40px 20px;
+    }
 
-        .login-form {
-            background: rgba(255, 255, 255, 0.1);
-            padding: 40px;
-            border-radius: 15px;
-            box-shadow: 0px 4px 15px rgba(255, 255, 255, 0.2);
-            width: 100%;
-            max-width: 500px;
-            text-align: center;
-            border: 1px solid rgba(255, 255, 255, 0.3);
-            backdrop-filter: blur(20px);
-            transform: scale(0.8);
-            opacity: 0;
-            animation: fadeIn 0.8s ease-out forwards;
-        }
+    .hero-section h1 {
+      font-size: 3rem;
+      font-weight: 700;
+      color: #ffffff;
+      text-shadow: 0 0 20px #00f0ff;
+      margin-bottom: 15px;
+    }
 
-        @keyframes fadeIn {
-            from {
-                transform: scale(0.8);
-                opacity: 0;
-            }
-            to {
-                transform: scale(1);
-                opacity: 1;
-            }
-        }
+    .hero-section p {
+      font-size: 1.2rem;
+      color: #ccc;
+      max-width: 600px;
+      margin: auto;
+    }
 
-        .login-form a.btn {
-            margin: 15px;
-            font-size: 18px;
-            padding: 12px 20px;
-        }
-    </style>
+    .btn-get-started,
+    .btn-login {
+      margin: 15px 10px 0;
+      background: #006eff;
+      color: white;
+      padding: 12px 30px;
+      font-size: 18px;
+      border-radius: 30px;
+      transition: all 0.3s ease-in-out;
+      box-shadow: 0 0 15px #00f0ff;
+      text-decoration: none;
+      display: inline-block;
+    }
+
+    .btn-get-started:hover,
+    .btn-login:hover {
+      background-color: #00f0ff;
+      color: #111;
+    }
+
+    .section-title {
+      text-align: center;
+      font-size: 2.2rem;
+      font-weight: 700;
+      margin-top: 80px;
+      margin-bottom: 40px;
+      color: #ffffff;
+    }
+
+    .card-feature {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 15px;
+      padding: 25px;
+      transition: all 0.3s ease;
+      text-align: center;
+      box-shadow: 0 0 15px rgba(0, 255, 255, 0.2);
+    }
+
+    .card-feature:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 0 25px rgba(0, 255, 255, 0.3);
+    }
+
+    .card-feature i {
+      font-size: 2.5rem;
+      color: #00f0ff;
+      margin-bottom: 15px;
+    }
+
+    .card-feature h5 {
+      font-weight: 600;
+      color: #fff;
+    }
+
+    .card-feature p {
+      font-size: 0.9rem;
+      color: #ccc;
+    }
+
+    .portfolio-img {
+      border-radius: 10px;
+      overflow: hidden;
+      box-shadow: 0 0 20px rgba(0, 255, 255, 0.1);
+      text-align: center;
+    }
+
+    .portfolio-img h5 {
+      margin-top: 15px;
+      font-size: 1.1rem;
+      color: #ffffff;
+    }
+
+    footer {
+      text-align: center;
+      padding: 30px 0;
+      color: #999;
+      background-color: rgba(255, 255, 255, 0.05);
+      font-size: 14px;
+      margin-top: 80px;
+    }
+
+    @media (max-width: 768px) {
+      .hero-section h1 {
+        font-size: 2.2rem;
+      }
+
+      .btn-get-started,
+      .btn-login {
+        width: 100%;
+        margin: 10px 0;
+      }
+    }
+  </style>
 </head>
 
 <body>
-    <div class="login-container">
-        <h2 class="login-title">🔐 Welcome to VisionLock</h2>
-        <div class="login-form">
-            <a href="/register/" class="btn btn-primary">Register</a>
-            <a href="/login/" class="btn btn-success">Login</a>
-        </div>
-    </div>
-</body>
 
+  <!-- Hero Section -->
+  <section class="hero-section" data-aos="zoom-in">
+    <h1>Innovative Security<br>for the Modern Era</h1>
+    <p>Experience seamless authentication with VisionLock's next-generation solutions.</p>
+    <div>
+      <a href="/register/" class="btn-get-started">Register</a>
+      <a href="/login/" class="btn-login">Login</a>
+    </div>
+  </section>
+
+  <!-- Feature Section -->
+  <div class="container">
+    <h2 class="section-title" data-aos="fade-up">Our Key Features</h2>
+    <div class="row g-4 justify-content-center">
+      <div class="col-md-3" data-aos="fade-up" data-aos-delay="100">
+        <div class="card-feature">
+          <i class="fas fa-face-smile"></i>
+          <h5>Facial Recognition</h5>
+          <p>Advanced and secure face authorization</p>
+        </div>
+      </div>
+      <div class="col-md-3" data-aos="fade-up" data-aos-delay="200">
+        <div class="card-feature">
+          <i class="fas fa-code"></i>
+          <h5>Morse Code PIN</h5>
+          <p>Unique and customizable blink-based PIN</p>
+        </div>
+      </div>
+      <div class="col-md-3" data-aos="fade-up" data-aos-delay="300">
+        <div class="card-feature">
+          <i class="fas fa-shield-alt"></i>
+          <h5>OTP Verification</h5>
+          <p>Real-time secure one-time passwords</p>
+        </div>
+      </div>
+      <div class="col-md-3" data-aos="fade-up" data-aos-delay="400">
+        <div class="card-feature">
+          <i class="fas fa-user-check"></i>
+          <h5>User Friendly</h5>
+          <p>Intuitive and easy-to-use interface</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Portfolio Section -->
+  <div class="container">
+    <h2 class="section-title" data-aos="fade-up">Explore Our Work</h2>
+    <div class="row g-4 justify-content-center">
+      <div class="col-md-6" data-aos="fade-right">
+        <div class="portfolio-img">
+          <img src="{% static 'images/project1.jpg' %}" alt="Project One" class="img-fluid">
+          <h5>Project One</h5>
+        </div>
+      </div>
+      <div class="col-md-6" data-aos="fade-left">
+        <div class="portfolio-img">
+          <img src="{% static 'images/project2.jpg' %}" alt="Project Two" class="img-fluid">
+          <h5>Project Two</h5>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer>
+    &copy; 2025 VisionLock. All rights reserved.
+  </footer>
+
+  <!-- Scripts -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
+  <script>
+    AOS.init({ duration: 1000, once: true });
+  </script>
+</body>
 </html>

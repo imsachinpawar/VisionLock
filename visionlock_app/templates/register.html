@@ -5,13 +5,19 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>VisionLock - Register</title>
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" />
+
+  <!-- External Styles -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet" />
 
   <style>
     body {
-      background: url("{% static 'images/BG-image.jpg' %}") no-repeat center center fixed;
+      font-family: 'Poppins', sans-serif;
+      background: url("{% static 'images/BG-image1.jpg' %}") no-repeat center center fixed;
       background-size: cover;
+      margin: 0;
+      overflow-x: hidden;
       position: relative;
     }
 
@@ -19,9 +25,17 @@
       content: "";
       position: absolute;
       inset: 0;
-      background: rgba(0, 0, 0, 0.6);
-      backdrop-filter: blur(5px);
+      background: linear-gradient(270deg, rgba(30, 209, 51, 0.2), rgba(59, 27, 214, 0.2), rgba(0, 0, 0, 0.6));
+      background-size: 600% 600%;
+      animation: animatedBackground 20s ease infinite;
+      backdrop-filter: blur(1px);
       z-index: -1;
+    }
+
+    @keyframes animatedBackground {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
     }
 
     .register-container {
@@ -29,21 +43,29 @@
       display: flex;
       justify-content: center;
       align-items: center;
+      padding: 40px 20px;
     }
 
     .register-card {
-      background: rgba(255, 255, 255, 0.1);
-      padding: 40px;
-      border-radius: 15px;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      box-shadow: 0 0 30px rgba(0, 255, 255, 0.15);
       backdrop-filter: blur(20px);
+      border-radius: 20px;
+      padding: 30px;
       color: #fff;
-      box-shadow: 0 0 20px rgba(255, 255, 255, 0.2);
-      max-width: 550px;
       width: 100%;
+      max-width: 500px;
+      animation: fadeInUp 1s ease-out;
+    }
+
+    @keyframes fadeInUp {
+      0% { opacity: 0; transform: translateY(30px); }
+      100% { opacity: 1; transform: translateY(0); }
     }
 
     .input-group .form-control {
-      background-color: rgba(255, 255, 255, 0.1);
+      background-color: rgba(255, 255, 255, 0.08);
       color: #fff;
       border: none;
       border-radius: 8px;
@@ -54,99 +76,103 @@
       color: #ccc;
     }
 
-    .input-group .btn-icon {
-      background-color: transparent;
+    .btn-icon {
+      background: transparent;
       border: none;
       color: #fff;
       font-size: 1.5rem;
-      padding: 0 15px;
-      cursor: pointer;
+      padding: 0 10px;
     }
 
     video {
       margin-top: 10px;
       border-radius: 10px;
-      display: none;
-    }
-
-    button {
-      margin-top: 10px;
+      box-shadow: 0 0 20px rgba(0, 255, 255, 0.2);
     }
 
     #morse-display {
       letter-spacing: 5px;
       font-size: 1.25rem;
     }
+
+    .btn-warning, .btn-light {
+      font-weight: 600;
+      box-shadow: 0 0 10px rgba(0, 240, 255, 0.3);
+      border-radius: 10px;
+    }
+
+    #morse-reference {
+      font-family: monospace;
+      font-size: 0.95rem;
+      border: 1px dashed #aaa;
+      background: rgba(255, 255, 255, 0.05);
+      color: #fff;
+    }
+
+    h2.text-center {
+      font-weight: 700;
+      font-size: 1.9rem;
+      text-shadow: 0 0 10px rgba(0, 240, 255, 0.3);
+    }
   </style>
 </head>
 
 <body>
-<div class="container register-container">
-  <div class="register-card text-center">
-    <h2 class="mb-4">👁️ Register Your Identity</h2>
+  <div class="container register-container">
+    <div class="register-card">
+      <h2 class="mb-4 text-center">👁️ Register Your Identity</h2>
 
-    <!-- 1. Voice Input -->
-    <div class="input-group mb-2">
-      <input type="text" id="voice-result" class="form-control" placeholder="Click 🎤 to capture username" readonly />
-      <button class="btn-icon" id="start-voice"><i class="fas fa-microphone"></i></button>
-    </div>
-    <button class="btn btn-sm btn-warning mb-3" id="erase-username">🧹 Erase Username</button>
+      <!-- 1. Voice Username -->
+      <div class="input-group mb-3">
+        <input type="text" id="voice-result" class="form-control" placeholder="Click 🎤 to capture username" />
+        <button class="btn-icon" id="start-voice"><i class="fas fa-microphone"></i></button>
+      </div>
 
-    <!-- 2. Morse Code Section -->
-    <div class="mb-4">
+      <!-- 2. Email -->
+      <div class="input-group mb-3">
+        <input type="email" id="email" class="form-control" placeholder="Enter your email or use 🎤" />
+        <button class="btn-icon" id="start-email-voice"><i class="fas fa-microphone"></i></button>
+      </div>
+
+      <!-- 3. Morse PIN -->
       <label for="morse-output" class="form-label fw-bold text-white">🔐 Morse Code PIN (Blink Input)</label>
-      <div class="input-group">
+      <div class="input-group mb-2">
         <input type="text" id="morse-output" class="form-control" placeholder="Click 👁️ to start blink detection" readonly />
         <button class="btn btn-outline-light" id="start-morse" type="button"><i class="fas fa-eye"></i></button>
       </div>
-      <button class="btn btn-sm btn-warning mt-2" id="erase-symbol">⌫ Erase Symbol</button>
+      <button class="btn btn-sm btn-warning mt-2 mb-2" id="erase-symbol">⌫ Erase Symbol</button>
+      <div id="morse-display" class="text-center text-warning fw-bold"></div>
 
-      <!-- Live Morse Symbol Display -->
-      <div id="morse-display" class="mt-2 text-center text-warning fw-bold"></div>
-
-      <!-- Morse Code Reference Box -->
-      <div id="morse-reference" class="mt-3 p-3 rounded bg-dark text-white" style="font-family: monospace; font-size: 0.95rem; border: 1px dashed #aaa;">
+      <div id="morse-reference" class="mt-3 p-3 rounded mb-4">
         <strong>Morse Code Reference (4 Blinks per Digit)</strong>
         <div class="row mt-2">
           <div class="col-6">
-            <div>.... → 0</div>
-            <div>..._ → 1</div>
-            <div>.._. → 2</div>
-            <div>..__ → 3</div>
-            <div>._.. → 4</div>
+            <div>.... → 0</div><div>..._ → 1</div><div>.._. → 2</div><div>..__ → 3</div><div>._.. → 4</div>
           </div>
           <div class="col-6">
-            <div>._._ → 5</div>
-            <div>.__. → 6</div>
-            <div>.___ → 7</div>
-            <div>_... → 8</div>
-            <div>_.._ → 9</div>
+            <div>._._ → 5</div><div>.__. → 6</div><div>.___ → 7</div><div>_... → 8</div><div>_.._ → 9</div>
           </div>
         </div>
       </div>
+
+      <!-- 4. Face ID -->
+      <div class="input-group mb-3">
+        <input type="text" id="face-result" class="form-control" placeholder="Click 🧑 to scan face" readonly />
+        <button class="btn-icon" id="start-face"><i class="fas fa-user-circle"></i></button>
+      </div>
+
+      <!-- 5. Camera -->
+      <video id="video-stream" width="100%" height="240" autoplay muted></video>
+      <canvas id="face-canvas" hidden></canvas>
+
+      <!-- 6. Submit -->
+      <button id="submit-registration" class="btn btn-light w-100 mt-4 fw-bold">✅ Submit Registration</button>
     </div>
-
-    <!-- 3. Face ID -->
-    <div class="input-group mb-3">
-      <input type="text" id="face-result" class="form-control" placeholder="Click 🧑 to scan face and get username" readonly />
-      <button class="btn-icon" id="start-face"><i class="fas fa-user-circle"></i></button>
-    </div>
-
-    <!-- 4. Live Video Feed -->
-    <video id="video-stream" width="320" height="240" autoplay muted></video>
-    <canvas id="face-canvas" hidden></canvas>
-
-    <!-- 5. Submit -->
-    <button id="submit-registration" class="btn btn-light w-100 mt-4 fw-bold">✅ Submit Registration</button>
   </div>
-</div>
 
-<!-- MediaPipe scripts (global scope) -->
-<script src="https://cdn.jsdelivr.net/npm/@mediapipe/face_mesh/face_mesh.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/@mediapipe/camera_utils/camera_utils.js"></script>
-
-<!-- Main registration logic -->
-<script src="{% static 'js/register.js' %}"></script>
-
+  <!-- Scripts -->
+  <script src="https://cdn.jsdelivr.net/npm/@mediapipe/face_mesh/face_mesh.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@mediapipe/camera_utils/camera_utils.js"></script>
+  <script src="{% static 'js/register.js' %}"></script>
 </body>
 </html>

@@ -161,21 +161,24 @@ document.getElementById("start-face").addEventListener("click", async () => {
 document.getElementById("submit-registration").addEventListener("click", () => {
   const username = document.getElementById("voice-result").value.trim();
   const morsePIN = document.getElementById("morse-output").value.trim();
+  const email = document.getElementById("email").value.trim();  // ✅ Add this line
 
-  if (!username || !morsePIN || !faceEncoding) {
-    alert("🚨 Please complete all steps: Voice, Blink, Face");
+  if (!username || !morsePIN || !faceEncoding || !email) {  // ✅ Add `email` check
+    alert("🚨 Please complete all steps: Voice, Blink, Face, Email");
     return;
   }
 
   fetch("/api/register-user/", {
-    method: "POST",
-    body: JSON.stringify({
-      username,
-      morse_pin: morsePIN,
-      face_encoding: faceEncoding
+  method: "POST",
+  body: JSON.stringify({
+    username,
+    email: document.getElementById("email").value.trim(),
+    morse_pin: morsePIN,
+    face_encoding: faceEncoding
     }),
     headers: { "Content-Type": "application/json" }
-  })
+   })
+
   .then(res => res.json())
   .then(data => {
     if (data.status === "success") {
@@ -185,4 +188,31 @@ document.getElementById("submit-registration").addEventListener("click", () => {
       alert("❌ Registration failed: " + data.message);
     }
   });
+});
+
+
+// Voice input for Email
+
+document.getElementById("start-email-voice").addEventListener("click", () => {
+  const recognition = new (window.SpeechRecognition || window.webkitSpeechRecognition)();
+  recognition.lang = "en-US";
+  recognition.interimResults = false;
+  recognition.onresult = (e) => {
+    const transcript = e.results[0][0].transcript.trim().replace(/\s/g, "").toLowerCase();
+    const parsedEmail = transcript
+      .replace(/ at /g, "@")
+      .replace(/ dot /g, ".")
+      .replace(/ underscore /g, "_");
+    document.getElementById("email").value = parsedEmail;
+  };
+  recognition.onerror = (e) => {
+    alert("Email voice input failed: " + e.error);
+  };
+  recognition.start();
+});
+
+// Erase email
+
+document.getElementById("erase-email").addEventListener("click", () => {
+  document.getElementById("email").value = "";
 });
