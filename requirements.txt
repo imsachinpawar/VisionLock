@@ -149,7 +149,7 @@ pyttsx3==2.98
 pytweening==1.2.0
 pytz==2024.2
 pywhatkit==5.4
-pywin32==310
+#pywin32==310
 pyzmq==26.3.0
 referencing==0.36.2
 reportlab==4.3.1
@@ -206,4 +206,5 @@ zope.hookable==7.0
 zope.interface==7.2
 zope.lifecycleevent==5.0
 zope.proxy==6.1
+
 
